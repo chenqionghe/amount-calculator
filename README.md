@@ -38,7 +38,7 @@ output
 
 
 ## Commandline Mode Example
-1. create your own go file: main.go
+create your own go file: main.go
 ```
 package main
 
@@ -50,10 +50,11 @@ func main() {
 	amountcalculator.RunCliMode()
 }
 ```
-2. run and parse three params
+run and parse three params
 ```
 go run main -max=156 -overflow=1 -items=12,135,11,12,15,16,18,32,64,76,50
 ```
+
 output
 ```
 156 [11 15 16 18 32 64]
