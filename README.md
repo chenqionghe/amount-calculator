@@ -3,6 +3,14 @@ High performance tools for calculating the amounts from the list of given amount
 
 
 # Usage
+create your own go file: main.go
 ```
-go run main.go -max=1900 -overflow=100 -items=280,280,280,280,280,280,250,250,250,230,220,215
+func main() {
+	lib.RunByComandParams()
+}
+```
+run this file, for example
+```
+go run main -max=156 -overflow=1 -amounts=12,135,11,100,12,15,16,18,32,64,76,50
+
 ```
