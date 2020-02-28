@@ -46,7 +46,7 @@ func (this *AmountCalculator) centToDollar(v int) float64 {
 }
 
 //run and return all combinations
-func (this *AmountCalculator) Run() [][]float64 {
+func (this *AmountCalculator) GetCombinations() [][]float64 {
 	items := this.items
 	n := len(this.items)
 	max := this.maxValue + this.overflow
