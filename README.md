@@ -10,6 +10,7 @@ go get -u github.com/chenqionghe/amount-calculator
 
 
 # Usage
+##  Code Example
 
 ```
 package main
@@ -32,21 +33,21 @@ func main() {
 
 
 
+## Commandline Example
 
-
-* Run Commandline
-
+1. create your own go file: main.go
 ```
+import (
+	"fmt"
+	"github.com/chenqionghe/amount-calculator"
+)
 
-create your own go file: main.go
-```
 func main() {
 	RunCliMode()
 }
 ```
-
-run this file, for example
+2. run and parse three params
 ```
-go run main -max=156 -overflow=1 -amounts=12,135,11,100,12,15,16,18,32,64,76,50
+go run main -max=156 -overflow=1 -items=12,135,11,100,12,15,16,18,32,64,76,50
 
 ```
