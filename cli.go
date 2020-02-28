@@ -10,22 +10,22 @@ import (
 
 type CommandParams struct {
 	Max      float64
-	Amounts  []float64
+	items    []float64
 	Overflow float64
 }
 
 func parseCliParams() *CommandParams {
 
 	var Max float64
-	var Amounts string
+	var items string
 	var Overflow float64
 	flag.Float64Var(&Max, "max", 0, `target amount, for example:2000`)
 	flag.Float64Var(&Overflow, "overflow", 0, `amount allow to overflow, for example: 1`)
-	flag.StringVar(&Amounts, "amounts", "", `all your amounts, for example:1,12,123,23,234`)
+	flag.StringVar(&items, "items", "", `all your amounts, for example:1,12,123,23,234`)
 
 	flag.Parse()
 
-	if Max == 0 || Amounts == "" {
+	if Max == 0 || items == "" {
 		flag.Usage()
 		os.Exit(1)
 	}
@@ -34,33 +34,28 @@ func parseCliParams() *CommandParams {
 		fmt.Println("max")
 		os.Exit(1)
 	}
-	if Amounts == "" {
+	if items == "" {
 		fmt.Println("请输出所有的发票")
 		os.Exit(1)
 	}
 
-	AmountsFloat := make([]float64, 0)
-	data := strings.Split(Amounts, ",")
+	itemsFloat := make([]float64, 0)
+	data := strings.Split(items, ",")
 	for _, v := range data {
 		d, _ := strconv.ParseFloat(v, 10)
-		AmountsFloat = append(AmountsFloat, d)
+		itemsFloat = append(itemsFloat, d)
 	}
 	return &CommandParams{
 		Overflow: Overflow,
 		Max:      Max,
-		Amounts:  AmountsFloat,
+		items:    itemsFloat,
 	}
 }
 
-// items:所有发票
-// maxValue:目标金额
-// overflow:允许误差金额
-func CliMode() {
+func RunCliMode() {
 	params := parseCliParams()
-	obj := New(params.Amounts, params.Max, params.Overflow)
-	//执行计算，返回所有结果方案
+	obj := New(params.items, params.Max, params.Overflow)
 	res := obj.Run()
-	//打印所有方案
 	for _, v := range res {
 		fmt.Print(sum(v), " ")
 		fmt.Println(v)
