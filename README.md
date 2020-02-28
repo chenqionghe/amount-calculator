@@ -28,6 +28,10 @@ func main() {
 	fmt.Println(obj.GetCombinations())
 }
 ``` 
+output
+```
+[[11 15 16 18 32 64] [16 64 76] [12 18 76 50]]
+```
 
 
 
@@ -36,16 +40,26 @@ func main() {
 ## Commandline Mode Example
 1. create your own go file: main.go
 ```
+package main
+
 import (
-	"fmt"
 	"github.com/chenqionghe/amount-calculator"
 )
 
 func main() {
-	RunCliMode()
+	amountcalculator.RunCliMode()
 }
 ```
 2. run and parse three params
 ```
 go run main -max=156 -overflow=1 -items=12,135,11,12,15,16,18,32,64,76,50
+```
+output
+```
+156 [11 15 16 18 32 64]
+156 [16 64 76]
+156 [12 18 76 50]
+157 [12 15 16 18 32 64]
+157 [15 16 18 32 76]
+157 [15 16 76 50]
 ```
