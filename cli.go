@@ -55,7 +55,7 @@ func parseCliParams() *CommandParams {
 func RunCliMode() {
 	params := parseCliParams()
 	obj := New(params.items, params.Max, params.Overflow)
-	res := obj.Run()
+	res := obj.GetCombinations()
 	for _, v := range res {
 		fmt.Print(sum(v), " ")
 		fmt.Println(v)
