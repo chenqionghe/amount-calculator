@@ -1,4 +1,4 @@
-package lib
+package main
 
 import (
 	"fmt"
@@ -6,15 +6,15 @@ import (
 	"strconv"
 )
 
-type AmountCalcuator struct {
+type AmountCalculator struct {
 	maxValue int   //期望值（单元为分）
 	items    []int //发票金额（单元为分）
 	overflow int   //允许的误差值（单元为分）
 }
 
 //items:所有发票 maxValue:目标金额 overflow:允许误差金额
-func NewAmountCalcuator(items []float64, maxValue float64, overflow float64) *AmountCalcuator {
-	obj := &AmountCalcuator{}
+func NewAmountCalculator(items []float64, maxValue float64, overflow float64) *AmountCalculator {
+	obj := &AmountCalculator{}
 	obj.maxValue = obj.dollarToCent(maxValue)
 	obj.overflow = obj.dollarToCent(overflow)
 	centItems := make([]int, len(items))
@@ -26,7 +26,7 @@ func NewAmountCalcuator(items []float64, maxValue float64, overflow float64) *Am
 }
 
 //元转分
-func (this *AmountCalcuator) dollarToCent(value float64) int {
+func (this *AmountCalculator) dollarToCent(value float64) int {
 	value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value), 64)
 
 	decimalValue := decimal.NewFromFloat(value)
@@ -38,7 +38,7 @@ func (this *AmountCalcuator) dollarToCent(value float64) int {
 }
 
 //分转元
-func (this *AmountCalcuator) centToDollar(v int) float64 {
+func (this *AmountCalculator) centToDollar(v int) float64 {
 	value := float64(v)
 	value, _ = strconv.ParseFloat(fmt.Sprintf("%.2f", value/100), 64)
 	return value
@@ -46,7 +46,7 @@ func (this *AmountCalcuator) centToDollar(v int) float64 {
 }
 
 //执行计算，返回所有方案
-func (this *AmountCalcuator) Run() [][]float64 {
+func (this *AmountCalculator) Run() [][]float64 {
 	items := this.items
 	n := len(this.items)
 	max := this.maxValue + this.overflow
@@ -91,7 +91,7 @@ func (this *AmountCalcuator) Run() [][]float64 {
 }
 
 //获取所有选中的元素（倒推）
-func (this *AmountCalcuator) getSelected(states [][]bool, items []int, n, max int) []float64 {
+func (this *AmountCalculator) getSelected(states [][]bool, items []int, n, max int) []float64 {
 	var selected = make([]int, 0)
 	for i := n; i >= 1; i-- {
 		//元素被选中
@@ -116,7 +116,7 @@ func (this *AmountCalcuator) getSelected(states [][]bool, items []int, n, max in
 }
 
 //初始化所有状态
-func (this *AmountCalcuator) createStates(n, max int) [][]bool {
+func (this *AmountCalculator) createStates(n, max int) [][]bool {
 	states := make([][]bool, n)
 	for i, _ := range states {
 		states[i] = make([]bool, max)

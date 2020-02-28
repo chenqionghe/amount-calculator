@@ -1,4 +1,4 @@
-package lib
+package main
 
 import "fmt"
 
@@ -6,7 +6,7 @@ import "fmt"
 func RunByComandParams() {
 	//parse command params
 	params := ParseParams()
-	obj := NewAmountCalcuator(params.Amounts, params.Max, params.Overflow)
+	obj := NewAmountCalculator(params.Amounts, params.Max, params.Overflow)
 	//执行计算，返回所有结果方案
 	res := obj.Run()
 	//打印所有方案
