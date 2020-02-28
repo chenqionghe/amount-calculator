@@ -1,9 +1,12 @@
 package amountcalculator
 
 import (
+	"flag"
 	"fmt"
 	"github.com/shopspring/decimal"
+	"os"
 	"strconv"
+	"strings"
 )
 
 type AmountCalculator struct {
@@ -122,4 +125,72 @@ func (this *AmountCalculator) createStates(n, max int) [][]bool {
 		states[i] = make([]bool, max)
 	}
 	return states
+}
+
+//items:所有发票 maxValue:目标金额 overflow:允许误差金额
+func RunByComandParams() {
+	//parse command params
+	params := ParseParams()
+	obj := NewAmountCalculator(params.Amounts, params.Max, params.Overflow)
+	//执行计算，返回所有结果方案
+	res := obj.Run()
+	//打印所有方案
+	for _, v := range res {
+		fmt.Print(sum(v), " ")
+		fmt.Println(v)
+	}
+}
+
+func sum(a []float64) float64 {
+	var s float64 = 0
+	for i := 0; i < len(a); i++ {
+		s += a[i]
+	}
+	return s
+}
+
+type CommandParams struct {
+	Max      float64
+	Amounts  []float64
+	Overflow float64
+}
+
+func ParseParams() *CommandParams {
+
+	var Max float64
+	var Amounts string
+	var Overflow float64
+	flag.Float64Var(&Max, "max", 0, `目标最大金额，例如：2000`)
+	flag.Float64Var(&Overflow, "overflow", 0, `允许超出的金额，例如：1`)
+
+	flag.StringVar(&Amounts, "amounts", "", `所有的碎票，多个用,隔开,例如：280,280,280,280,280,280,250,250,250,230,220,215`)
+
+	flag.Parse()
+
+	if Max == 0 || Amounts == "" {
+		flag.Usage()
+		os.Exit(1)
+	}
+
+	if Max == 0 {
+		fmt.Println("请输出最大金额")
+		os.Exit(1)
+	}
+	if Amounts == "" {
+		fmt.Println("请输出所有的发票")
+		os.Exit(1)
+	}
+
+	AmountsFloat := make([]float64, 0)
+	data := strings.Split(Amounts, ",")
+	for _, v := range data {
+		d, _ := strconv.ParseFloat(v, 10)
+		AmountsFloat = append(AmountsFloat, d)
+	}
+	return &CommandParams{
+		Overflow: Overflow,
+		Max:      Max,
+		Amounts:  AmountsFloat,
+	}
+
 }
