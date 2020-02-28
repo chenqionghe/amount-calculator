@@ -12,7 +12,7 @@ go get -u github.com/chenqionghe/amount-calculator
 # Usage
 ##  Code Example
 
-```
+```go
 package main
 
 import (
@@ -21,16 +21,17 @@ import (
 )
 
 func main() {
-    // all your amounts
+	// all your amounts
 	items := []float64{12, 135, 11, 12, 15, 16, 18, 32, 64, 76, 50}
 	// target amount
 	target := float64(156)
 	// allow to overflow
 	overflow := float64(1)
-	
+
 	obj := amountcalculator.New(items, target, overflow)
 	fmt.Println(obj.GetCombinations())
 }
+
 ``` 
 output
 ```
@@ -43,7 +44,7 @@ output
 
 ## Commandline Mode Example
 create your own go file: main.go
-```
+```go
 package main
 
 import (
@@ -58,7 +59,7 @@ run and pass three parameters
 * items: all your amounts
 * max: target amount
 * overflow: allow to overflow
-```
+```shell
 go run main -max=156 -overflow=1 -items=12,135,11,12,15,16,18,32,64,76,50
 ```
 output
