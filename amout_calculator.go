@@ -13,8 +13,8 @@ type AmountCalculator struct {
 }
 
 // items: all your amounts
-// maxValue: all your amounts
-// overflow: amount allow to overflow
+// maxValue: target amount
+// overflow: allow to overflow
 func New(items []float64, maxValue float64, overflow float64) *AmountCalculator {
 	obj := &AmountCalculator{}
 	obj.maxValue = obj.dollarToCent(maxValue)

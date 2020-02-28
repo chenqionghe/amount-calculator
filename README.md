@@ -21,9 +21,13 @@ import (
 )
 
 func main() {
+    // all your amounts
 	items := []float64{12, 135, 11, 12, 15, 16, 18, 32, 64, 76, 50}
+	// target amount
 	target := float64(156)
+	// allow to overflow
 	overflow := float64(1)
+	
 	obj := amountcalculator.New(items, target, overflow)
 	fmt.Println(obj.GetCombinations())
 }
@@ -50,11 +54,13 @@ func main() {
 	amountcalculator.RunCliMode()
 }
 ```
-run and parse three params
+run and pass three parameters
+* items: all your amounts
+* max: target amount
+* overflow: allow to overflow
 ```
 go run main -max=156 -overflow=1 -items=12,135,11,12,15,16,18,32,64,76,50
 ```
-
 output
 ```
 156 [11 15 16 18 32 64]
