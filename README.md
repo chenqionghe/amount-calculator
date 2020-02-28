@@ -1,5 +1,5 @@
 # Amount Calculator
-High performance tools for calculating the amounts from the list of given amounts
+High-performance tool for calculating all combinations of matching target amounts from the list of given amounts
 
 
 # Install
