@@ -31,11 +31,11 @@ func parseCliParams() *CommandParams {
 	}
 
 	if Max == 0 {
-		fmt.Println("max")
+		fmt.Println("max required")
 		os.Exit(1)
 	}
 	if items == "" {
-		fmt.Println("请输出所有的发票")
+		fmt.Println("items required")
 		os.Exit(1)
 	}
 
