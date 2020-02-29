@@ -3,6 +3,7 @@ package amountcalculator
 import (
 	"flag"
 	"fmt"
+	"github.com/shopspring/decimal"
 	"os"
 	"strconv"
 	"strings"
@@ -63,9 +64,10 @@ func RunCliMode() {
 }
 
 func sum(a []float64) float64 {
-	var s float64 = 0
+	var s = decimal.NewFromFloat(0)
 	for i := 0; i < len(a); i++ {
-		s += a[i]
+		s = s.Add(decimal.NewFromFloat(a[i]))
 	}
-	return s
+	f, _ := s.Float64()
+	return f
 }
